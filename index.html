@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Vibes - Ton Planificateur d'Événements Étudiants</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Campus Vibes</h1>
+        <p class="header-subtitle">Ta source d'événements étudiants super amusants !</p>
+    </header>
+
+    <main class="main-content">
+        <section class="event-display">
+            <h2 class="section-title">Événements à la Une !</h2>
+            <div class="event-card">
+                <div class="slider-container">
+                    <button class="slider-nav prev">←</button>
+                    <div class="slider-track">
+                        <div class="slide active">
+                            <img src="etudiants.jpeg" alt="Événement 1" class="event-image">
+                            <div class="event-details">
+                                <h3 class="event-title">PAIN PIGEON</h3>
+                                <p class="event-info">🗓️ **20/06/25** | 📍 **CAMPUS FOYET**</p>
+                                <p class="event-description">N'attends plus les deuils pour pouvoir manger un petit bout de pain mon gar, viens au campus Foyet ce 20 Juin pour manger autant de pains pigeons comme jamais!!!</p>
+                                <button class="btn btn-primary">S'inscrire à cet événement</button>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="cartes.jpg" alt="Événement 2" class="event-image">
+                            <div class="event-details">
+                                <h3 class="event-title">SOIRÉE CARTES</h3>
+                                <p class="event-info">🗓️ **21/06/25** | 📍 **CAMPUS CENTRAL**</p>
+                                <p class="event-description">Une soirée exceptionnelle avec les meilleurs DJ du campus ! Ambiance garantie !</p>
+                                <button class="btn btn-primary">S'inscrire à cet événement</button>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="gastro.jpg" alt="Événement 3" class="event-image">
+                            <div class="event-details">
+                                <h3 class="event-title">SOIREE GASTRO</h3>
+                                <p class="event-info">🗓️ **22/06/25** | 📍 **CAMPUS BIBLIOTHÈQUE**</p>
+                                <p class="event-description">Teste tes connaissances et remporte des prix !</p>
+                                <button class="btn btn-primary">S'inscrire à cet événement</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slider-nav next">→</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="action-buttons">
+            <h2 class="section-title">Participe à la vie du Campus !</h2>
+            <div class="buttons-container">
+                <button class="btn btn-secondary">Proposer un événement</button>
+                <button class="btn btn-secondary">Voir les événements passés</button>
+                <button class="btn btn-secondary">Voir les événements futurs</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Campus Vibes. Ambiance étudiante garantie !</p>
+    </footer>
+</body>
+</html>
