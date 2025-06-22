@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Détails de l'événement</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <div><a href="index.html" style="font-weight: bold">Plan'It</a></div>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="events.html">Événements</a></li>
+          <li><a href="profile.html">Profil</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <header>
+        <h1 id="event-title">Détails de l'événement</h1>
+      </header>
+      <main>
+        <div id="event-details" class="event-details"></div>
+        <img
+          id="event-image"
+          class="event-img"
+          style="display: none; margin: 0 auto 1.5rem auto"
+          alt="Image de l'événement"
+        />
+        <button id="participate-btn" class="btn" style="display: none">
+          Je participe
+        </button>
+      </main>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script>
+      // Récupère l'ID de l'événement depuis l'URL
+      function getEventIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+      }
+
+      // Charge les détails de l'événement
+      fetch("data/events.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const events = Array.isArray(data) ? data : data.events || [];
+          const eventId = getEventIdFromUrl();
+          const event = events.find((e) => String(e.id) === String(eventId));
+          const detailsDiv = document.getElementById("event-details");
+          const titleH1 = document.getElementById("event-title");
+          const btn = document.getElementById("participate-btn");
+          if (!event) {
+            detailsDiv.innerHTML = "<p>Événement non trouvé.</p>";
+            btn.style.display = "none";
+            titleH1.textContent = "Événement introuvable";
+            document.getElementById("event-image").style.display = "none";
+            return;
+          }
+          titleH1.textContent = event.title;
+          detailsDiv.innerHTML = `
+                <p><strong>Date :</strong> ${event.date}</p>
+                <p><strong>Lieu :</strong> ${event.location}</p>
+                <p><strong>Description :</strong> ${event.description || ""}</p>
+            `;
+          if (event.image) {
+            const img = document.getElementById("event-image");
+            img.src = event.image;
+            img.style.display = "block";
+          } else {
+            document.getElementById("event-image").style.display = "none";
+          }
+          btn.style.display = "inline-block";
+          btn.onclick = function () {
+            let participations = JSON.parse(
+              localStorage.getItem("participations") || "[]"
+            );
+            if (!participations.includes(event.id)) {
+              participations.push(event.id);
+              localStorage.setItem(
+                "participations",
+                JSON.stringify(participations)
+              );
+            }
+            alert("Inscription enregistrée !");
+          };
+        })
+        .catch(() => {
+          document.getElementById("event-details").innerHTML =
+            "<p>Erreur lors du chargement de l'événement.</p>";
+        });
+    </script>
+  </body>
+</html>

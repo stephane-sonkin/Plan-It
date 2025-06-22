@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil étudiant</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+      }
+      .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #e1e1e1;
+        margin-bottom: 1rem;
+      }
+      .profile-username {
+        font-size: 1.5rem;
+        color: #273c75;
+        font-weight: bold;
+      }
+      .profile-events {
+        width: 100%;
+        max-width: 500px;
+      }
+      .profile-events h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      .profile-event-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 1rem 1.2rem;
+        margin-bottom: 1rem;
+      }
+      @media (max-width: 600px) {
+        .profile-events {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <div><a href="index.html" style="font-weight: bold">Plan'It</a></div>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="events.html">Événements</a></li>
+          <li><a href="profile.html">Profil</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container profile-container">
+      <div class="profile-header">
+        <img
+          src="https://ui-avatars.com/api/?name=Stéphane+Etudiant&background=0097e6&color=fff&size=256"
+          alt="Photo de profil"
+          class="profile-pic"
+        />
+        <div class="profile-username">Stéphane Étudiant</div>
+      </div>
+      <div class="profile-events">
+        <h2>Mes événements inscrits</h2>
+        <div id="my-events-list"></div>
+      </div>
+    </div>
+    <script>
+      // Récupère les participations depuis le localStorage
+      const participations = JSON.parse(
+        localStorage.getItem("participations") || "[]"
+      );
+      fetch("data/events.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const events = Array.isArray(data) ? data : data.events || [];
+          const myEvents = events.filter((e) => participations.includes(e.id));
+          const listDiv = document.getElementById("my-events-list");
+          if (!myEvents.length) {
+            listDiv.innerHTML = "<p>Aucun événement inscrit.</p>";
+            return;
+          }
+          listDiv.innerHTML = myEvents
+            .map(
+              (event) => `
+                <div class='profile-event-card'>
+                    <strong>${event.title}</strong><br>
+                    <span>Date : ${event.date}</span><br>
+                    <span>Lieu : ${event.location}</span>
+                </div>
+            `
+            )
+            .join("");
+        })
+        .catch(() => {
+          document.getElementById("my-events-list").innerHTML =
+            "<p>Erreur lors du chargement des événements.</p>";
+        });
+    </script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
